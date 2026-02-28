@@ -2,10 +2,10 @@ use rand::Rng;
 
 use crate::game::*;
 
-pub const INPUT_SIZE: usize = 10;
-pub const HIDDEN_SIZE: usize = 16;
+pub const INPUT_SIZE: usize = 14;
+pub const HIDDEN_SIZE: usize = 20;
 pub const OUTPUT_SIZE: usize = 4;
-// Weights: (INPUT+1)*HIDDEN + (HIDDEN+1)*OUTPUT = 11*16 + 17*4 = 176+68 = 244
+// Weights: (INPUT+1)*HIDDEN + (HIDDEN+1)*OUTPUT = 15*20 + 21*4 = 300+84 = 384
 pub const GENOME_SIZE: usize = (INPUT_SIZE + 1) * HIDDEN_SIZE + (HIDDEN_SIZE + 1) * OUTPUT_SIZE;
 
 #[derive(Clone, Debug)]
@@ -72,24 +72,41 @@ impl Genome {
         let angle_opp_to_us = (-dy).atan2(-dx);
         let opp_facing_angle = opp.rotation - angle_opp_to_us;
 
-        // Own speed and opponent speed
+        // Own speed and velocity direction relative to heading
         let own_speed = (ship.vx * ship.vx + ship.vy * ship.vy).sqrt();
+        let own_vel_angle = if own_speed > 1.0 {
+            ship.vy.atan2(ship.vx) - ship.rotation
+        } else {
+            0.0
+        };
+
         let opp_speed = (opp.vx * opp.vx + opp.vy * opp.vy).sqrt();
 
         // Nearest enemy bullet
         let (bullet_dist, bullet_angle) = nearest_enemy_bullet(state, ship_idx);
 
+        // Fire cooldown (0 = ready, 1 = max cooldown)
+        let cooldown_norm = (ship.fire_cooldown / FIRE_COOLDOWN).min(1.0);
+
+        // Own projectile count
+        let own_projectiles = state.projectiles.iter().filter(|p| p.owner == ship_idx).count();
+        let projectile_norm = own_projectiles as f32 / MAX_PROJECTILES_PER_SHIP as f32;
+
         [
-            (dist / 500.0).min(1.0),     // distance to opponent (normalized)
-            angle_to_opp.sin(),           // angle to opponent (sin)
-            angle_to_opp.cos(),           // angle to opponent (cos)
-            opp_facing_angle.sin(),       // opponent facing direction (sin)
-            opp_facing_angle.cos(),       // opponent facing direction (cos)
-            (own_speed / 300.0).min(1.0), // own speed normalized
-            (opp_speed / 300.0).min(1.0), // opponent speed normalized
-            bullet_dist,                  // nearest bullet distance
-            bullet_angle.sin(),           // nearest bullet angle (sin)
-            bullet_angle.cos(),           // nearest bullet angle (cos)
+            (dist / 500.0).min(1.0),      // 0: distance to opponent (normalized)
+            angle_to_opp.sin(),            // 1: angle to opponent (sin)
+            angle_to_opp.cos(),            // 2: angle to opponent (cos)
+            opp_facing_angle.sin(),        // 3: opponent facing direction (sin)
+            opp_facing_angle.cos(),        // 4: opponent facing direction (cos)
+            (own_speed / 300.0).min(1.0),  // 5: own speed normalized
+            (opp_speed / 300.0).min(1.0),  // 6: opponent speed normalized
+            bullet_dist,                   // 7: nearest bullet distance
+            bullet_angle.sin(),            // 8: nearest bullet angle (sin)
+            bullet_angle.cos(),            // 9: nearest bullet angle (cos)
+            own_vel_angle.sin(),           // 10: own drift direction (sin)
+            own_vel_angle.cos(),           // 11: own drift direction (cos)
+            cooldown_norm,                 // 12: fire cooldown (0=ready)
+            projectile_norm,               // 13: own projectile count (normalized)
         ]
     }
 

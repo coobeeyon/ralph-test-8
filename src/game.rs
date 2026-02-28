@@ -12,6 +12,7 @@ pub const MATCH_DURATION: f32 = 30.0;
 pub const SHIP_RADIUS: f32 = 12.0;
 pub const PROJECTILE_RADIUS: f32 = 2.0;
 pub const MAX_PROJECTILES_PER_SHIP: usize = 5;
+pub const MAX_SHIP_SPEED: f32 = 300.0;
 
 #[derive(Clone, Debug)]
 pub struct Ship {
@@ -125,6 +126,16 @@ impl GameState {
             self.ships[i].vx *= drag;
             self.ships[i].vy *= drag;
 
+            // Speed cap
+            let speed = (self.ships[i].vx * self.ships[i].vx
+                + self.ships[i].vy * self.ships[i].vy)
+                .sqrt();
+            if speed > MAX_SHIP_SPEED {
+                let scale = MAX_SHIP_SPEED / speed;
+                self.ships[i].vx *= scale;
+                self.ships[i].vy *= scale;
+            }
+
             // Position
             self.ships[i].x += self.ships[i].vx * dt;
             self.ships[i].y += self.ships[i].vy * dt;
@@ -150,6 +161,43 @@ impl GameState {
                     });
                     self.ships[i].fire_cooldown = FIRE_COOLDOWN;
                     self.ships[i].shots_fired += 1;
+                }
+            }
+        }
+
+        // Ship-to-ship collision (elastic bounce)
+        if self.ships[0].alive && self.ships[1].alive {
+            let dx = toroidal_diff(self.ships[0].x, self.ships[1].x, ARENA_WIDTH);
+            let dy = toroidal_diff(self.ships[0].y, self.ships[1].y, ARENA_HEIGHT);
+            let dist_sq = dx * dx + dy * dy;
+            let min_dist = SHIP_RADIUS * 2.0;
+            if dist_sq < min_dist * min_dist && dist_sq > 0.001 {
+                let dist = dist_sq.sqrt();
+                let nx = dx / dist;
+                let ny = dy / dist;
+
+                // Separate ships so they don't overlap
+                let overlap = min_dist - dist;
+                self.ships[0].x += nx * overlap * 0.5;
+                self.ships[0].y += ny * overlap * 0.5;
+                self.ships[1].x -= nx * overlap * 0.5;
+                self.ships[1].y -= ny * overlap * 0.5;
+
+                // Wrap positions after separation
+                self.ships[0].x = wrap(self.ships[0].x, ARENA_WIDTH);
+                self.ships[0].y = wrap(self.ships[0].y, ARENA_HEIGHT);
+                self.ships[1].x = wrap(self.ships[1].x, ARENA_WIDTH);
+                self.ships[1].y = wrap(self.ships[1].y, ARENA_HEIGHT);
+
+                // Elastic velocity exchange along collision normal
+                let rel_vn = (self.ships[0].vx - self.ships[1].vx) * nx
+                    + (self.ships[0].vy - self.ships[1].vy) * ny;
+                if rel_vn < 0.0 {
+                    // Ships are approaching
+                    self.ships[0].vx -= rel_vn * nx;
+                    self.ships[0].vy -= rel_vn * ny;
+                    self.ships[1].vx += rel_vn * nx;
+                    self.ships[1].vy += rel_vn * ny;
                 }
             }
         }

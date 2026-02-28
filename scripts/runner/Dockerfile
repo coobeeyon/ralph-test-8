@@ -9,13 +9,18 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN mkdir -p /root/.ssh && \
     ssh-keyscan github.com >> /root/.ssh/known_hosts
 
-# Layer 3: Install litebrite (lb) from source
+# Layer 3: Install Rust toolchain and litebrite (lb) from source
 RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y && \
     . /root/.cargo/env && \
     cargo install --git https://github.com/coobeeyon/litebrite.git && \
-    cp /root/.cargo/bin/lb /usr/local/bin/lb && \
-    rustup self uninstall -y && \
-    rm -rf /root/.cargo /root/.rustup
+    cp /root/.cargo/bin/lb /usr/local/bin/lb
+
+# Layer 3b: System dependencies for macroquad (OpenGL/X11)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    pkg-config libx11-dev libxi-dev libgl1-mesa-dev libasound2-dev \
+  && rm -rf /var/lib/apt/lists/*
+
+ENV PATH="/root/.cargo/bin:${PATH}"
 
 # Layer 4: Claude Code (changes occasionally)
 RUN npm install -g @anthropic-ai/claude-code

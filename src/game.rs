@@ -1,7 +1,7 @@
 use rand::Rng;
 
-pub const ARENA_WIDTH: f32 = 800.0;
-pub const ARENA_HEIGHT: f32 = 600.0;
+pub const ARENA_WIDTH: f32 = 1600.0;
+pub const ARENA_HEIGHT: f32 = 1200.0;
 pub const SHIP_ROTATION_SPEED: f32 = 5.0;
 pub const SHIP_THRUST: f32 = 200.0;
 pub const SHIP_DRAG: f32 = 0.98;

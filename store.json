@@ -178,6 +178,11 @@
       "dep_type": "blocks"
     },
     {
+      "from_id": "lb-w7d8",
+      "to_id": "lb-vmfa",
+      "dep_type": "parent"
+    },
+    {
       "from_id": "lb-xa5t",
       "to_id": "lb-0d65",
       "dep_type": "parent"
@@ -196,11 +201,6 @@
       "from_id": "lb-xa5t",
       "to_id": "lb-o2on",
       "dep_type": "blocks"
-    },
-    {
-      "from_id": "lb-w7d8",
-      "to_id": "lb-vmfa",
-      "dep_type": "parent"
     },
     {
       "from_id": "lb-yl5s",

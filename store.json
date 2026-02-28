@@ -65,10 +65,10 @@
       "title": "Evolutionary system: population, selection, crossover, mutation",
       "description": "Manage population of genomes, run tournament selection, crossover and mutation operators, generational evolution loop",
       "item_type": "task",
-      "status": "open",
+      "status": "closed",
       "priority": 1,
       "created_at": "2026-02-28T19:16:28.071731214Z",
-      "updated_at": "2026-02-28T19:16:28.071731214Z"
+      "updated_at": "2026-02-28T19:24:03.628820266Z"
     },
     "lb-xa5t": {
       "id": "lb-xa5t",

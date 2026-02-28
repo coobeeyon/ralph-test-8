@@ -78,12 +78,19 @@ impl GameState {
     }
 
     pub fn new_random(rng: &mut impl Rng) -> Self {
-        let y1 = rng.gen_range(150.0..450.0);
-        let y2 = rng.gen_range(150.0..450.0);
+        let tau = std::f32::consts::TAU;
         GameState {
             ships: [
-                Ship::new(200.0, y1, rng.gen_range(-0.5..0.5)),
-                Ship::new(600.0, y2, std::f32::consts::PI + rng.gen_range(-0.5..0.5)),
+                Ship::new(
+                    rng.gen_range(0.0..ARENA_WIDTH),
+                    rng.gen_range(0.0..ARENA_HEIGHT),
+                    rng.gen_range(0.0..tau),
+                ),
+                Ship::new(
+                    rng.gen_range(0.0..ARENA_WIDTH),
+                    rng.gen_range(0.0..ARENA_HEIGHT),
+                    rng.gen_range(0.0..tau),
+                ),
             ],
             projectiles: Vec::new(),
             time: 0.0,

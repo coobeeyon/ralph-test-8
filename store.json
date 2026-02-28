@@ -1,4 +1,15 @@
 {
-  "items": {},
+  "items": {
+    "lb-0d65": {
+      "id": "lb-0d65",
+      "title": "Evolved Spaceship Duel",
+      "description": "Rust program that evolves AI combatants for a 1v1 spaceship duel game with Asteroids-style mechanics and visualization",
+      "item_type": "epic",
+      "status": "open",
+      "priority": 1,
+      "created_at": "2026-02-28T19:16:18.865455993Z",
+      "updated_at": "2026-02-28T19:16:18.865455993Z"
+    }
+  },
   "deps": []
 }

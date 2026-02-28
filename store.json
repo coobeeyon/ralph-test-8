@@ -50,6 +50,16 @@
       "created_at": "2026-02-28T19:16:28.046978994Z",
       "updated_at": "2026-02-28T19:16:28.046978994Z"
     },
+    "lb-tpwh": {
+      "id": "lb-tpwh",
+      "title": "Integration: connect evolution loop with live visualization",
+      "description": "Wire everything together: run evolution in background, display best-of-generation matches in the visualization window",
+      "item_type": "task",
+      "status": "open",
+      "priority": 1,
+      "created_at": "2026-02-28T19:16:28.100046972Z",
+      "updated_at": "2026-02-28T19:16:28.100046972Z"
+    },
     "lb-v9qu": {
       "id": "lb-v9qu",
       "title": "Evolutionary system: population, selection, crossover, mutation",
@@ -99,6 +109,11 @@
     },
     {
       "from_id": "lb-j2hn",
+      "to_id": "lb-0d65",
+      "dep_type": "parent"
+    },
+    {
+      "from_id": "lb-tpwh",
       "to_id": "lb-0d65",
       "dep_type": "parent"
     }

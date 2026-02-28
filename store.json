@@ -40,6 +40,16 @@
       "created_at": "2026-02-28T19:16:28.046978994Z",
       "updated_at": "2026-02-28T19:16:28.046978994Z"
     },
+    "lb-v9qu": {
+      "id": "lb-v9qu",
+      "title": "Evolutionary system: population, selection, crossover, mutation",
+      "description": "Manage population of genomes, run tournament selection, crossover and mutation operators, generational evolution loop",
+      "item_type": "task",
+      "status": "open",
+      "priority": 1,
+      "created_at": "2026-02-28T19:16:28.071731214Z",
+      "updated_at": "2026-02-28T19:16:28.071731214Z"
+    },
     "lb-xa5t": {
       "id": "lb-xa5t",
       "title": "Project setup: Cargo project with dependencies",
@@ -69,6 +79,11 @@
     },
     {
       "from_id": "lb-1cx3",
+      "to_id": "lb-0d65",
+      "dep_type": "parent"
+    },
+    {
+      "from_id": "lb-v9qu",
       "to_id": "lb-0d65",
       "dep_type": "parent"
     }

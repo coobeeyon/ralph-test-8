@@ -80,6 +80,16 @@
       "created_at": "2026-02-28T19:30:30.032647688Z",
       "updated_at": "2026-02-28T19:30:30.032647688Z"
     },
+    "lb-w7d8": {
+      "id": "lb-w7d8",
+      "title": "Non-blocking evolution: move computation to background thread",
+      "description": "Currently pop.evaluate() runs 800 matches synchronously in the render loop, causing UI freezes. Move evolution to a background thread using std::thread and check for completion between showcase matches. This directly addresses the spec requirement: While evolution is running, the user must be able to watch matches being played out in real time.",
+      "item_type": "task",
+      "status": "open",
+      "priority": 1,
+      "created_at": "2026-02-28T19:30:33.963163790Z",
+      "updated_at": "2026-02-28T19:30:33.963163790Z"
+    },
     "lb-xa5t": {
       "id": "lb-xa5t",
       "title": "Project setup: Cargo project with dependencies",
@@ -166,6 +176,11 @@
       "from_id": "lb-xa5t",
       "to_id": "lb-o2on",
       "dep_type": "blocks"
+    },
+    {
+      "from_id": "lb-w7d8",
+      "to_id": "lb-vmfa",
+      "dep_type": "parent"
     }
   ]
 }

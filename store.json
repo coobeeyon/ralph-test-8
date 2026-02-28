@@ -136,6 +136,11 @@
       "from_id": "lb-xa5t",
       "to_id": "lb-h630",
       "dep_type": "blocks"
+    },
+    {
+      "from_id": "lb-xa5t",
+      "to_id": "lb-o2on",
+      "dep_type": "blocks"
     }
   ]
 }

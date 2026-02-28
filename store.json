@@ -75,11 +75,10 @@
       "title": "Project setup: Cargo project with dependencies",
       "description": "Initialize Cargo project with macroquad for rendering, rand for RNG, and basic project structure",
       "item_type": "task",
-      "status": "open",
+      "status": "closed",
       "priority": 1,
-      "claimed_by": "agent-runner",
       "created_at": "2026-02-28T19:16:28.030486095Z",
-      "updated_at": "2026-02-28T19:16:38.972558899Z"
+      "updated_at": "2026-02-28T19:24:03.570962231Z"
     }
   },
   "deps": [

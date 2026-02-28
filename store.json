@@ -115,11 +115,10 @@
       "title": "Add ship-to-ship collision and speed limit",
       "description": "Ships currently pass through each other. Add elastic collision between ships. Also add a max speed cap to prevent unrealistic velocities.",
       "item_type": "task",
-      "status": "open",
+      "status": "closed",
       "priority": 3,
-      "claimed_by": "agent-runner",
       "created_at": "2026-02-28T19:30:38.884764555Z",
-      "updated_at": "2026-02-28T19:33:06.616491481Z"
+      "updated_at": "2026-02-28T19:33:49.998106131Z"
     }
   },
   "deps": [

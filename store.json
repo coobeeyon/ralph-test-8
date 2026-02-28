@@ -10,6 +10,16 @@
       "created_at": "2026-02-28T19:16:18.865455993Z",
       "updated_at": "2026-02-28T19:16:18.865455993Z"
     },
+    "lb-h630": {
+      "id": "lb-h630",
+      "title": "Game physics engine: arena, ships, movement, projectiles",
+      "description": "Implement 2D arena with toroidal wrapping, ship physics (rotation, thrust, inertia), projectile firing and movement, collision detection",
+      "item_type": "task",
+      "status": "open",
+      "priority": 1,
+      "created_at": "2026-02-28T19:16:28.036975126Z",
+      "updated_at": "2026-02-28T19:16:28.036975126Z"
+    },
     "lb-xa5t": {
       "id": "lb-xa5t",
       "title": "Project setup: Cargo project with dependencies",
@@ -24,6 +34,11 @@
   "deps": [
     {
       "from_id": "lb-xa5t",
+      "to_id": "lb-0d65",
+      "dep_type": "parent"
+    },
+    {
+      "from_id": "lb-h630",
       "to_id": "lb-0d65",
       "dep_type": "parent"
     }

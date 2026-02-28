@@ -151,6 +151,11 @@
       "from_id": "lb-v9qu",
       "to_id": "lb-tpwh",
       "dep_type": "blocks"
+    },
+    {
+      "from_id": "lb-j2hn",
+      "to_id": "lb-tpwh",
+      "dep_type": "blocks"
     }
   ]
 }
